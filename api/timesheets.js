@@ -3,6 +3,14 @@ const timesheetsRouter = express.Router();
 const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite');
 
+// Add middleware for handling CORS requests from index.html
+const cors = require('cors');
+timesheetsRouter.use(cors());
+
+// Add middleware for handling errors
+const errorhandler = require('errorhandler');
+timesheetsRouter.use(errorhandler());
+
 /**********************validating timesheet if posses all 3 required fields hours, rate, date *****************************/
 const isValidTimesheetRequest = (req, res, next) => {
     const timesheetToValidate = req.body.timesheet;

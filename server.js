@@ -12,10 +12,17 @@ const PORT = process.env.PORT || 4000;
 
 app.use(express.static('public'));
 
-/*// Add middleware for handling CORS requests from index.html
+// Add middleware for handling CORS requests from index.html
 const cors = require('cors');
-app.use(cors());*/
+app.use(cors());
 
+// Add middleware for handling errors
+const errorhandler = require('errorhandler');
+app.use(errorhandler());
+
+// Add request logger middleware Morgan
+const morgan = require('morgan');
+app.use(morgan('dev'));
 
 
 // Mount your existing employeesRouter below at the '/employee' path.
