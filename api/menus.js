@@ -3,14 +3,6 @@ const menusRouter = express.Router();
 const sqlite3 = require('sqlite3');
 const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite');
 
-// Add middleware for handling CORS requests from index.html
-const cors = require('cors');
-menusRouter.use(cors());
-
-// Add middleware for handling errors
-const errorhandler = require('errorhandler');
-menusRouter.use(errorhandler());
-
 // handle :menuId parameters
 menusRouter.param('menuId', (req, res, next, id) => {
     db.get(`SELECT * FROM Menu WHERE id = $id`, {$id: id}, (err, menu) => {
